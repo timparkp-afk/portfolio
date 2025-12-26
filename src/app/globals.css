@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F7F6F4;
-  --foreground: #000000;
+  --background: #0A0A0A;
+  --foreground: #FFFFFF;
 }
 
 @theme inline {
@@ -11,8 +11,46 @@
   --font-sans: var(--font-inter);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
 }
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+  transform-origin: top center;
+}
+
