@@ -326,7 +326,7 @@ export default function ProjectPage() {
     },
     { id: 'outcomes', title: 'Outcomes and Beta Cohort' },
   ] : project.id === 6 ? [
-    { id: 'role', title: 'Role' },
+    { id: 'team', title: 'Team' },
     { id: 'overview', title: 'Overview' },
     { id: 'problem', title: 'The Problem' },
     { id: 'data', title: 'The Data' },
@@ -334,18 +334,17 @@ export default function ProjectPage() {
     { id: 'design-principles', title: 'Design Principles' },
     { id: 'building-onboarding', title: 'Building a New Onboarding Experience' },
     { id: 'user-testing', title: 'User Testing & Validating Signal' },
-    { id: 'success-metrics', title: 'How we plan to measure success' },
+    { id: 'success-metrics', title: 'How we planned to measure success' },
     { id: 'leadership', title: 'Words from leadership' },
   ] : project.id === 8 ? [
     { id: 'role', title: 'Role' },
     { id: 'overview', title: 'Overview' },
     { id: 'key-responsibilities', title: 'Key responsibilities' },
-    { id: 'redesigned', title: 'REDESIGNED' },
-    { id: 'goals', title: 'GOALS' },
+    { id: 'redesigned', title: 'Redesigned experiences' },
+    { id: 'goals', title: 'Goal' },
     { id: 'colors', title: 'Colors' },
     { id: 'typography', title: 'Typography' },
     { id: 'elevation', title: 'Elevation' },
-    { id: 'icons', title: 'Icons' },
     { id: 'new-experiences', title: 'New experiences brought to market' },
   ] : [];
 
@@ -489,6 +488,28 @@ export default function ProjectPage() {
               Building a simple and effective design system for CRE investing
             </p>
           )}
+          {project.id === 8 && (
+            <div 
+              className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                theme === "dark" 
+                  ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                  : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+              }`}
+              onClick={() => {
+                setModalImageSrc("/images/cadre-dls/cadre-dls-hero.png");
+                setImageModalOpen(true);
+              }}
+            >
+              <Image
+                src="/images/cadre-dls/cadre-dls-hero.png"
+                alt="Cadre Design System"
+                width={1200}
+                height={675}
+                className="w-full h-auto rounded-[8px]"
+                unoptimized
+              />
+            </div>
+          )}
           {project.id === 1 && (
             <div 
               className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
@@ -556,47 +577,25 @@ export default function ProjectPage() {
             </div>
           )}
           {project.id === 6 && (
-            <div className="space-y-4">
-              <div 
-                className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
-                  theme === "dark" 
-                    ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
-                    : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
-                }`}
-                onClick={() => {
-                  setModalImageSrc("/images/cre/before.png");
-                  setImageModalOpen(true);
-                }}
-              >
-                <Image
-                  src="/images/cre/before.png"
-                  alt="Before"
-                  width={1200}
-                  height={675}
-                  className="w-full h-auto rounded-[8px]"
-                  unoptimized
-                />
-              </div>
-              <div 
-                className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
-                  theme === "dark" 
-                    ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
-                    : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
-                }`}
-                onClick={() => {
-                  setModalImageSrc("/images/cre/after.png");
-                  setImageModalOpen(true);
-                }}
-              >
-                <Image
-                  src="/images/cre/after.png"
-                  alt="After"
-                  width={1200}
-                  height={675}
-                  className="w-full h-auto rounded-[8px]"
-                  unoptimized
-                />
-              </div>
+            <div 
+              className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                theme === "dark" 
+                  ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                  : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+              }`}
+              onClick={() => {
+                setModalImageSrc("/images/cre-investing/investing-hero.png");
+                setImageModalOpen(true);
+              }}
+            >
+              <Image
+                src="/images/cre-investing/investing-hero.png"
+                alt="Investing in CRE"
+                width={1200}
+                height={675}
+                className="w-full h-auto rounded-[8px]"
+                unoptimized
+              />
             </div>
           )}
           {project.id === 7 && (
@@ -2116,22 +2115,14 @@ export default function ProjectPage() {
 
         {project.id === 6 && (
           <div className="space-y-16 md:space-y-20 pb-12 md:pb-16">
-            {/* Role */}
-            <section id="role" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '200ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">Role</h3>
-              <p className="text-[14px] leading-relaxed text-foreground">
-                Design Lead - Product Design, Prototyping, User flows, QA
-              </p>
-              <div className="mt-4 space-y-2 text-[14px] leading-relaxed text-foreground">
-                <p className="font-medium">Length & Status</p>
-                <p>4 months, Launching Q4 2023</p>
-                <p className="font-medium mt-4">Team</p>
-                <ul className="space-y-1 ml-4 list-disc">
-                  <li>Nelson Tang, PM</li>
-                  <li>Jag Singh, SWE</li>
-                  <li>Yonah Karp, SWE</li>
-                </ul>
-              </div>
+            {/* Team */}
+            <section id="team" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '200ms' }}>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Team</h3>
+              <ul className="space-y-1 ml-4 list-disc text-[14px] leading-relaxed text-foreground">
+                <li>1 Designer (Me)</li>
+                <li>1 Product Manager</li>
+                <li>2 Engineers</li>
+              </ul>
             </section>
 
             {/* Overview */}
@@ -2145,10 +2136,99 @@ export default function ProjectPage() {
                   I led the end-to-end design direction of a new investing experience and played a crucial role in redefining success metrics for conversion.
                 </p>
                 <div className="mt-6">
-                  <p className="font-medium mb-2">REDESIGNED & ENHANCED</p>
+                  <p className="font-medium mb-2">Redesigned</p>
                   <p>
                     An end-to-end redesigned experience to allow new users to seamlessly set up their profile for CRE investing.
                   </p>
+                  <div className="mt-4 space-y-4">
+                    <div>
+                      <div 
+                        className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/before.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/before.png"
+                          alt="Before"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                      <p className={`text-[12px] mt-2 ${
+                        theme === "dark" 
+                          ? "text-[#808080]" 
+                          : "text-foreground/50"
+                      }`}>
+                        Before
+                      </p>
+                    </div>
+                    <div>
+                      <div 
+                        className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/after.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/after.png"
+                          alt="After"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                      <p className={`text-[12px] mt-2 ${
+                        theme === "dark" 
+                          ? "text-[#808080]" 
+                          : "text-foreground/50"
+                      }`}>
+                        After
+                      </p>
+                    </div>
+                    <div>
+                      <div 
+                        className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/browse.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/browse.png"
+                          alt="Redesigned Marketplace"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                      <p className={`text-[12px] mt-2 ${
+                        theme === "dark" 
+                          ? "text-[#808080]" 
+                          : "text-foreground/50"
+                      }`}>
+                        Redesigned Marketplace
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -2166,12 +2246,96 @@ export default function ProjectPage() {
                     <p>
                       An investing entity is the vehicle that makes an investment in a commercial real estate offering. This includes verifying your identity and submitting tax documents to verify your status as an accredited investor. Investors can set up different entity types such as an Individual, Joint Tenants, LLC, Trust, and even through an IRA plan.
                     </p>
+                    <div className="mt-4">
+                      <div 
+                        className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/entrypoints.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/entrypoints.png"
+                          alt="Entrypoints"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <p className="font-medium">Submitting an allocation</p>
                     <p>
                       Once an investor has created an entity, they will be able to submit a dollar allocation for a CRE offering using that entity vehicle, which further requires document signing and an approval period. Each allocation may have different questions and requirements, which depend on the type of entity the investor chooses to use.
                     </p>
+                    <div className="mt-4 flex gap-4">
+                      <div 
+                        className={`flex-1 rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/mobile-2.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/mobile-2.png"
+                          alt="Mobile 2"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                      <div 
+                        className={`flex-1 rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/mobile-3.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/mobile-3.png"
+                          alt="Mobile 3"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                      <div 
+                        className={`flex-1 rounded-[8px] overflow-hidden cursor-pointer ${
+                          theme === "dark" 
+                            ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                            : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                        }`}
+                        onClick={() => {
+                          setModalImageSrc("/images/cre-investing/mobile-4.png");
+                          setImageModalOpen(true);
+                        }}
+                      >
+                        <Image
+                          src="/images/cre-investing/mobile-4.png"
+                          alt="Mobile 4"
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto rounded-[8px]"
+                          unoptimized
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2190,9 +2354,53 @@ export default function ProjectPage() {
                 <p>
                   Research shows that high intent investors see the investment process as straightforward, indicating the problem areas to be at the point of creating an entity - a daunting task for any user new to CRE.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cre-investing/data.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cre-investing/data.png"
+                      alt="Data"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
                 <p>
                   In a survey earlier this year, we asked investors what the core investment process was like for them. The weighted score was 3.6 (1-hardest, 5-easiest). This told us that we didn&apos;t need to spend most of our efforts optimizing the questions to create an entity and make investments, but rather focus on entry/de-entry points as well as a guidance system for entity creation.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cre-investing/research.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cre-investing/research.png"
+                      alt="Research"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2240,6 +2448,28 @@ export default function ProjectPage() {
                   <p>
                     In order for new users to make an investment, they need create an account, create an investing entity, and link their bank account. To make sense of an otherwise unconventional set of requirements, I designed a nudge banner categorized with three steps for a new user to follow. These banner states will live on top of the user&apos;s page until all tasks are completed.
                   </p>
+                  <div className="mt-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cre-investing/guided-steps.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cre-investing/guided-steps.png"
+                        alt="Guided Steps"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 2. Multiple entry points */}
@@ -2248,12 +2478,28 @@ export default function ProjectPage() {
                   <p>
                     Entity creation requires intention and dedicated effort due to the requirements ranging from Identity Verification, Tax Document Upload, and Suitability affirmation. Not every user may be fully prepared to complete an entity in a single session. Not only that, investors have the ability to create multiple entity types to invest in different deals.
                   </p>
-                  <p className="mt-2">
-                    Introducing multiple entry points and the ability to save was a crucial principle in executing this new design flow.
-                  </p>
-                  <p className="mt-2">
-                    I designed an elevated dialog that can be opened from any of these entry points with the ability to save and return whenever the user needs.
-                  </p>
+                  <div className="mt-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cre-investing/complex-2.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cre-investing/complex-2.png"
+                        alt="Complex Entities 2"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* 3. Complex entities */}
@@ -2265,17 +2511,28 @@ export default function ProjectPage() {
                   <p className="mt-2">
                     Pulling in design system components and introducing a large action dialog, I was able to design consistent experiences for all entity types without causing increases in engineering scope and development time.
                   </p>
-                </div>
-
-                {/* 4. Optimize investment */}
-                <div>
-                  <p className="text-[15px] font-medium mb-4">4. Optimize making an investment and convert investors</p>
-                  <p>
-                    With the entity creation experience separated, that gave us room to significantly reduce the number of steps an investor would go through to submit an investment.
-                  </p>
-                  <p className="mt-2">
-                    I took this opportunity to redesign the entire investment flow, following the design principles to build a clear, frictionless, and elegant experience.
-                  </p>
+                  <div className="mt-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cre-investing/complex-1.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cre-investing/complex-1.png"
+                        alt="Complex Entities"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -2287,12 +2544,34 @@ export default function ProjectPage() {
                 <p>
                   To gain qualitative data on the Nudge Banners and Entity Creation cover pages, I used the UserTesting tool to facilitate a group of users through a series of questions.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cre-investing/validation.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cre-investing/validation.png"
+                      alt="Validation"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
             {/* Success Metrics */}
             <section id="success-metrics" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '1000ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">How we plan to measure success</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">How we planned to measure success</h3>
               <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
                 <p>
                   We planned to measure success based on these key results:
@@ -2370,9 +2649,7 @@ export default function ProjectPage() {
                 Design Lead - UX & Visual Design, Prototyping, Project Management, QA
               </p>
               <div className="mt-4 space-y-2 text-[14px] leading-relaxed text-foreground">
-                <p className="font-medium">Length & Status</p>
-                <p>5 months, Launched in February 2023</p>
-                <p className="font-medium mt-4">Collaborators</p>
+                <p className="font-medium">Collaborators</p>
                 <ul className="space-y-1 ml-4 list-disc">
                   <li>2 Product Designers</li>
                   <li>2 Product Managers</li>
@@ -2403,40 +2680,236 @@ export default function ProjectPage() {
                 <li>Maintained and scaled in parallel with product roadmap</li>
                 <li>Presented needs & outcomes to leadership as well as stakeholders across product and engineering to gather buy in</li>
               </ul>
+              <div className="mt-4 space-y-4">
+                <div 
+                  className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                    theme === "dark" 
+                      ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                      : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                  }`}
+                  onClick={() => {
+                    setModalImageSrc("/images/cadre-dls/banner-1.png");
+                    setImageModalOpen(true);
+                  }}
+                >
+                  <Image
+                    src="/images/cadre-dls/banner-1.png"
+                    alt="Banner 1"
+                    width={1200}
+                    height={675}
+                    className="w-full h-auto rounded-[8px]"
+                    unoptimized
+                  />
+                </div>
+                <div 
+                  className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                    theme === "dark" 
+                      ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                      : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                  }`}
+                  onClick={() => {
+                    setModalImageSrc("/images/cadre-dls/banner-2.png");
+                    setImageModalOpen(true);
+                  }}
+                >
+                  <Image
+                    src="/images/cadre-dls/banner-2.png"
+                    alt="Banner 2"
+                    width={1200}
+                    height={675}
+                    className="w-full h-auto rounded-[8px]"
+                    unoptimized
+                  />
+                </div>
+              </div>
             </section>
 
             {/* REDESIGNED */}
             <section id="redesigned" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '500ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">REDESIGNED</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Redesigned experiences</h3>
               <div className="space-y-8 text-[14px] leading-relaxed text-foreground">
                 <div>
                   <p className="font-medium mb-2">Browse page for Commercial Real Estate deals</p>
                   <p>
                     Improved investment submission rates with new browsing experience from 3.7% to 9.5%.
                   </p>
+                  <div className="mt-4 space-y-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/browse-before.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/browse-before.png"
+                        alt="Browse Before"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/browse-after.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/browse-after.png"
+                        alt="Browse After"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <p className="font-medium mb-2">Signing up for Cadre</p>
                   <p>
                     Improved sign up rates from 10.6% to 17.5% and enhanced investor qualifications to capture users most likely to convert down funnel.
                   </p>
+                  <div className="mt-4 space-y-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/signup-before.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/signup-before.png"
+                        alt="Signup Before"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/signup-after.png?v=2");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/signup-after.png?v=2"
+                        alt="Signup After"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <p className="font-medium mb-2">Mobile signup experience</p>
                   <p>
                     Improved mobile sign up rates from 16.1% to 19.3% & improved retention rate for Personal Identifiable Information (PII) input by 22.2%.
                   </p>
+                  <div className="mt-4 flex gap-4">
+                    <div 
+                      className={`flex-1 rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/mobilesignup-before.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/mobilesignup-before.png"
+                        alt="Mobile Signup Before"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                    <div 
+                      className={`flex-1 rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/mobilesignup-after.png");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <Image
+                        src="/images/cadre-dls/mobilesignup-after.png"
+                        alt="Mobile Signup After"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
 
             {/* GOALS */}
             <section id="goals" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '600ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">GOALS</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Goal</h3>
               <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
                 <p>
                   As a design team of 2, the Cadre Design System was built to be simple, light, and useful; to speed up designing while also not constraining the design process. We wanted to have a nimble DS that wouldn&apos;t be caught up by &quot;atomic&quot; principles and allow us to ship products quickly.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cadre-dls/timeline.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <div className={`p-4 ${
+                      theme === "dark" 
+                        ? "bg-[#252525]" 
+                        : "bg-[#F0F0F0]"
+                    }`}>
+                      <Image
+                        src="/images/cadre-dls/timeline.png"
+                        alt="Timeline"
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2447,6 +2920,28 @@ export default function ProjectPage() {
                 <p>
                   Colors placed into basic groups to quickly pull into designs and for engineers to recognize uses by name.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cadre-dls/colors.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cadre-dls/colors.png"
+                      alt="Colors"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2457,6 +2952,28 @@ export default function ProjectPage() {
                 <p>
                   We wanted to make sure to build our typography system thoughtfully, as Cadre utilizes text quite often to display details about CRE deals on deal cards, investment information, important disclosures, and educational content.
                 </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cadre-dls/typography.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cadre-dls/typography.png"
+                      alt="Typography"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2467,16 +2984,28 @@ export default function ProjectPage() {
                 <p>
                   We built a set of shadows as we anticipated leveraging a number of overlays and elevated content across our redesigns as well as future products.
                 </p>
-              </div>
-            </section>
-
-            {/* Icons */}
-            <section id="icons" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '1000ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">Icons</h3>
-              <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
-                <p>
-                  Rather than spend bandwidth on creating custom icons, we decided to use Font Awesome to build our icon library. This was an effective move to as FA offers just the right styles with an endless supply of icons for our needs. We converted the .svgs into components that can be pulled into other components such as tags and buttons.
-                </p>
+                <div className="mt-4">
+                  <div 
+                    className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                      theme === "dark" 
+                        ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                        : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                    }`}
+                    onClick={() => {
+                      setModalImageSrc("/images/cadre-dls/shadows.png");
+                      setImageModalOpen(true);
+                    }}
+                  >
+                    <Image
+                      src="/images/cadre-dls/shadows.png"
+                      alt="Shadows"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto rounded-[8px]"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -2485,53 +3014,54 @@ export default function ProjectPage() {
               <h3 className="text-[15px] font-medium text-foreground mb-4">New experiences brought to market</h3>
               <div className="space-y-6 text-[14px] leading-relaxed text-foreground">
                 <div>
-                  <p className="font-medium mb-2">Investor preferences</p>
-                  <p>
-                    A questionnaire given to users at signup to collect information on their investing behaviors.
-                  </p>
-                  <p className={`mt-2 text-[12px] ${
-                    theme === "dark" 
-                      ? "text-[#808080]" 
-                      : "text-foreground/60"
-                  }`}>
-                    Designs by Tim Park • Released Q2 2023
-                  </p>
-                </div>
-                <div>
                   <p className="font-medium mb-2">Entity Creation</p>
                   <p>
                     Vehicle that makes an investment in CRE offerings, required in order to make an investment
                   </p>
-                  <p className={`mt-2 text-[12px] ${
-                    theme === "dark" 
-                      ? "text-[#808080]" 
-                      : "text-foreground/60"
-                  }`}>
-                    Designs by Tim Park • Released Q4 2023
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium mb-2">Making an investment</p>
-                  <p className={`mt-2 text-[12px] ${
-                    theme === "dark" 
-                      ? "text-[#808080]" 
-                      : "text-foreground/60"
-                  }`}>
-                    Designs by Tim Park • Released Q4 2023
-                  </p>
+                  <div className="mt-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/entity-creation.gif");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <img
+                        src="/images/cadre-dls/entity-creation.gif"
+                        alt="Entity Creation"
+                        className="w-full h-auto rounded-[8px]"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <p className="font-medium mb-2">Comparing deal offerings</p>
                   <p>
                     As investors are browsing between offerings, they can choose to add up to three offerings to be compared together.
                   </p>
-                  <p className={`mt-2 text-[12px] ${
-                    theme === "dark" 
-                      ? "text-[#808080]" 
-                      : "text-foreground/60"
-                  }`}>
-                    Released Q3 2023
-                  </p>
+                  <div className="mt-4">
+                    <div 
+                      className={`w-full rounded-[8px] overflow-hidden cursor-pointer ${
+                        theme === "dark" 
+                          ? "shadow-[0_2px_8px_rgba(0,0,0,0.3)]" 
+                          : "shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                      }`}
+                      onClick={() => {
+                        setModalImageSrc("/images/cadre-dls/compare.gif");
+                        setImageModalOpen(true);
+                      }}
+                    >
+                      <img
+                        src="/images/cadre-dls/compare.gif"
+                        alt="Compare Deal Offerings"
+                        className="w-full h-auto rounded-[8px]"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>

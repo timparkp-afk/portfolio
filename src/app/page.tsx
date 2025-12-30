@@ -8,6 +8,7 @@ export default function Home() {
   const router = useRouter();
   const [emailCopied, setEmailCopied] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [profilePhotoHovered, setProfilePhotoHovered] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
@@ -90,9 +91,46 @@ export default function Home() {
       <div className="2xl:max-w-[1192px] 2xl:mx-auto">
       {/* Header */}
       <header className="flex items-center justify-between pb-12 md:pb-16 animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-        <h1 className="text-[14px] font-medium text-foreground">
-          Tim Park
-        </h1>
+        <div className="flex items-center relative">
+          <Image
+            src="/images/profilephoto.png"
+            alt="Tim Park"
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-full border"
+            style={{
+              borderColor: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)",
+              borderWidth: "1px"
+            }}
+            onMouseEnter={() => setProfilePhotoHovered(true)}
+            onMouseLeave={() => setProfilePhotoHovered(false)}
+            unoptimized
+          />
+          {profilePhotoHovered && (
+            <div 
+              className="absolute left-0 top-0 rounded-full overflow-hidden transition-opacity duration-300 hidden md:block"
+              style={{
+                width: '100px',
+                height: '100px',
+                marginLeft: '-120px',
+                zIndex: 9999
+              }}
+            >
+              <Image
+                src="/images/profilephoto.png"
+                alt="Tim Park"
+                width={100}
+                height={100}
+                className="w-[100px] h-[100px] rounded-full border"
+                style={{
+                  borderColor: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)",
+                  borderWidth: "1px"
+                }}
+                unoptimized
+              />
+            </div>
+          )}
+        </div>
         <nav className="flex items-center" aria-label="Main navigation">
           <div className={`flex gap-2 p-1 rounded-[12px] border ${
             theme === "dark" 
@@ -222,19 +260,19 @@ export default function Home() {
       {/* About Section */}
       <section className="pb-12 md:pb-16 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
         <p className="text-[14px] leading-relaxed text-foreground">
-          <span className="font-medium">Hi, I&apos;m Tim -</span> Product Designer based in NYC. Recently I was at{" "}
+          <span className="font-medium">Hi, I&apos;m Tim Park -</span> Product Designer based in NYC. Recently I was at{" "}
           <a 
             href="https://www.unifygtm.com/" 
-            target="_blank" 
+            target="_blank"
             rel="noopener noreferrer"
             className={`underline text-foreground transition-colors ${theme === "dark" ? "hover:text-[#D0D0D0]" : "hover:opacity-70"}`}
           >
             Unify
           </a>{" "}
-          designing lorem ipsum dolor amiset color power. Before that I was on the design teams over at{" "}
+          designing AI-powered workflows that help sales teams reach the right customers at the right time. Before that I was on the design teams over at{" "}
           <a 
             href="https://www.willowwealth.com/" 
-            target="_blank" 
+            target="_blank"
             rel="noopener noreferrer"
             className={`underline text-foreground transition-colors ${theme === "dark" ? "hover:text-[#D0D0D0]" : "hover:opacity-70"}`}
           >
@@ -243,7 +281,7 @@ export default function Home() {
           and{" "}
           <a 
             href="https://www.vts.com/" 
-            target="_blank" 
+            target="_blank"
             rel="noopener noreferrer"
             className={`underline text-foreground transition-colors ${theme === "dark" ? "hover:text-[#D0D0D0]" : "hover:opacity-70"}`}
           >
@@ -261,13 +299,17 @@ export default function Home() {
               key={project.id}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
-              onClick={() => router.push(`/projects/${project.id}`)}
+              onClick={() => {
+                setHoveredProject(null);
+                router.push(`/projects/${project.id}`);
+              }}
               className="cursor-pointer relative"
               role="button"
               tabIndex={0}
               aria-label={`${project.title} - ${project.category}`}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
+                  setHoveredProject(null);
                   router.push(`/projects/${project.id}`);
                 }
               }}
@@ -315,69 +357,107 @@ export default function Home() {
             </div>
           ))}
           {/* Images - show on hover at the top of the container, aligned with first project */}
-          {hoveredProject === 1 && (
-            <div 
-              className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-300 hidden md:block ${
-                theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
-              }`}
-              style={{
-                width: '600px',
-                marginLeft: '80px',
-                zIndex: 10
-              }}
-            >
-              <Image
-                src="/images/reply-classification/reply-hero.png"
-                alt="Email Reply Classification"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-[8px]"
-                unoptimized
-              />
-            </div>
-          )}
-          {hoveredProject === 2 && (
-            <div 
-              className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-300 hidden md:block ${
-                theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
-              }`}
-              style={{
-                width: '360px',
-                marginLeft: '80px',
-                zIndex: 10
-              }}
-            >
-              <Image
-                src="/images/notifications/notifications-hero.png?v=2"
-                alt="Notifications"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-[8px]"
-                unoptimized
-              />
-            </div>
-          )}
-          {hoveredProject === 3 && (
-            <div 
-              className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-300 hidden md:block ${
-                theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
-              }`}
-              style={{
-                width: '600px',
-                marginLeft: '80px',
-                zIndex: 10
-              }}
-            >
-              <Image
-                src="/images/tasks/tasks-hero.png?v=3"
-                alt="One-off Sales Tasks"
-                width={1200}
-                height={675}
-                className="w-full h-auto rounded-[8px]"
-                unoptimized
-              />
-            </div>
-          )}
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 1 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            } ${
+              theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/reply-classification/reply-hero.png"
+              alt="Email Reply Classification"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 2 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            } ${
+              theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
+            }`}
+            style={{
+              width: '360px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/notifications/notifications-hero.png?v=2"
+              alt="Notifications"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 3 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            } ${
+              theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/tasks/tasks-hero.png?v=3"
+              alt="One-off Sales Tasks"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 6 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/cre-investing/investing-hero.png"
+              alt="Investing in CRE"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 8 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/cadre-dls/cadre-dls-hero.png"
+              alt="Cadre Design System"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
         </div>
       </section>
 
