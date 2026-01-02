@@ -12,30 +12,30 @@ export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-      return savedTheme || "dark";
+      return savedTheme || "light";
     }
-    return "dark";
+    return "light";
   });
   
   const projects = [
     {
       id: 3,
-      title: "One-off Sales Tasks",
+      title: "Flexible Task Orchestration",
       category: "Unify",
     },
     {
       id: 1,
-      title: "Email Reply Classification",
+      title: "AI Powered Reply Intelligence",
       category: "Unify",
     },
     {
       id: 2,
-      title: "Notifications",
+      title: "Unified Notification System",
       category: "Unify",
     },
     {
       id: 7,
-      title: "Track Social Signals",
+      title: "Real-time LinkedIn Signal Tracking",
       category: "Unify",
     },
     {
@@ -45,12 +45,12 @@ export default function Home() {
     },
     {
       id: 6,
-      title: "Investing in CRE",
+      title: "Multi-path Investment Journeys",
       category: "Cadre",
     },
     {
       id: 8,
-      title: "Design System",
+      title: "Design System for Rapid Development",
       category: "Cadre",
     },
   ];
@@ -102,34 +102,8 @@ export default function Home() {
               borderColor: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)",
               borderWidth: "1px"
             }}
-            onMouseEnter={() => setProfilePhotoHovered(true)}
-            onMouseLeave={() => setProfilePhotoHovered(false)}
             unoptimized
           />
-          {profilePhotoHovered && (
-            <div 
-              className="absolute left-0 top-0 rounded-full overflow-hidden transition-opacity duration-300 hidden md:block"
-              style={{
-                width: '100px',
-                height: '100px',
-                marginLeft: '-120px',
-                zIndex: 9999
-              }}
-            >
-              <Image
-                src="/images/profilephoto.png"
-                alt="Tim Park"
-                width={100}
-                height={100}
-                className="w-[100px] h-[100px] rounded-full border"
-                style={{
-                  borderColor: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)",
-                  borderWidth: "1px"
-                }}
-                unoptimized
-              />
-            </div>
-          )}
         </div>
         <nav className="flex items-center" aria-label="Main navigation">
           <div className={`flex gap-2 p-1 rounded-[12px] border ${
@@ -138,7 +112,7 @@ export default function Home() {
               : "bg-foreground/5 border-foreground/10"
           }`}>
             <a
-              href="/resume.pdf"
+              href="https://www.linkedin.com/in/thetimpark/"
               target="_blank"
               rel="noopener noreferrer"
               className={`relative p-1 rounded-[8px] transition-colors flex items-center justify-center group ${
@@ -146,31 +120,23 @@ export default function Home() {
                   ? "hover:bg-[#252525] text-foreground" 
                   : "hover:bg-foreground/10 text-foreground"
               }`}
-              aria-label="View resume"
+              aria-label="View LinkedIn profile"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-4 h-4"
+                fill="currentColor"
+                className={`w-4 h-4 ${theme === "light" ? "opacity-70" : ""}`}
                 aria-hidden="true"
               >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-                <polyline points="10 9 9 9 8 9" />
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
               <span className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 ${
                 theme === "dark" 
                   ? "bg-[#2A2A2A] text-foreground border border-[#404040]" 
                   : "bg-white text-foreground border border-foreground/20"
               }`}>
-                See resume
+                View profile
               </span>
             </a>
             <button 
@@ -188,7 +154,7 @@ export default function Home() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="w-4 h-4"
@@ -221,7 +187,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="w-4 h-4"
@@ -243,7 +209,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="w-4 h-4"
@@ -287,7 +253,7 @@ export default function Home() {
           >
             VTS
           </a>
-          .
+          . I&apos;ve spent my career designing complex B2B systems, and I&apos;m excited to explore new challenges to push my craft forward.
         </p>
       </section>
 
@@ -337,7 +303,7 @@ export default function Home() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className="w-3.5 h-3.5 transition-opacity duration-200"
@@ -371,7 +337,7 @@ export default function Home() {
           >
             <Image
               src="/images/reply-classification/reply-hero.png"
-              alt="Email Reply Classification"
+              alt="AI Powered Reply Intelligence"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"
@@ -392,7 +358,7 @@ export default function Home() {
           >
             <Image
               src="/images/notifications/notifications-hero.png?v=2"
-              alt="Notifications"
+              alt="Unified Notification System"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"
@@ -413,7 +379,28 @@ export default function Home() {
           >
             <Image
               src="/images/tasks/tasks-hero.png?v=3"
-              alt="One-off Sales Tasks"
+              alt="Flexible Task Orchestration"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 7 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            } ${
+              theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/social-signals/linkedin-hero.png"
+              alt="Real-time LinkedIn Signal Tracking"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"
@@ -432,7 +419,7 @@ export default function Home() {
           >
             <Image
               src="/images/cre-investing/investing-hero.png"
-              alt="Investing in CRE"
+              alt="Multi-path Investment Journeys"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"
@@ -451,7 +438,28 @@ export default function Home() {
           >
             <Image
               src="/images/cadre-dls/cadre-dls-hero.png"
-              alt="Cadre Design System"
+              alt="Design System for Rapid Development"
+              width={1200}
+              height={675}
+              className="w-full h-auto rounded-[8px]"
+              unoptimized
+            />
+          </div>
+          <div 
+            className={`absolute left-full top-0 rounded-[8px] overflow-hidden transition-opacity duration-200 ease-in-out hidden md:block ${
+              hoveredProject === 5 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            } ${
+              theme === "dark" ? "bg-[#1A1A1A] border border-[#2A2A2A]" : "bg-foreground/5 border border-foreground/10"
+            }`}
+            style={{
+              width: '600px',
+              marginLeft: '80px',
+              zIndex: 10
+            }}
+          >
+            <Image
+              src="/images/product-wins/hover.png"
+              alt="Select Product Wins"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"

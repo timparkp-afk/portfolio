@@ -8,19 +8,19 @@ import Image from "next/image";
 const projects = [
   {
     id: 1,
-    title: "AI Driven Email Reply Classifications",
+    title: "AI Powered Reply Intelligence",
     category: "Unify",
   },
   {
     id: 2,
-    title: "Notifications",
+    title: "Unified Notification System",
     category: "Unify",
   },
-  {
-    id: 3,
-    title: "One-off Sales Tasks",
-    category: "Unify",
-  },
+    {
+      id: 3,
+      title: "Flexible Task Orchestration",
+      category: "Unify",
+    },
   {
     id: 5,
     title: "Select Product Wins",
@@ -28,17 +28,17 @@ const projects = [
   },
   {
     id: 6,
-    title: "Investing in CRE",
+    title: "Multi-path Investment Journeys",
     category: "Cadre",
   },
   {
     id: 7,
-    title: "Track Social Signals",
+    title: "Real-time LinkedIn Signal Tracking",
     category: "Unify",
   },
   {
     id: 8,
-    title: "Design System",
+    title: "Design System for Rapid Development",
     category: "Cadre",
   },
 ];
@@ -54,6 +54,8 @@ export default function ProjectPage() {
   const [error, setError] = useState("");
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState("");
+  const [carouselImages, setCarouselImages] = useState<string[]>([]);
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
   const [showJumpToTop, setShowJumpToTop] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [projectCardModalOpen, setProjectCardModalOpen] = useState(false);
@@ -62,9 +64,9 @@ export default function ProjectPage() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-      return savedTheme || "dark";
+      return savedTheme || "light";
     }
-    return "dark";
+    return "light";
   });
 
   useEffect(() => {
@@ -117,14 +119,33 @@ export default function ProjectPage() {
   }, []);
 
   useEffect(() => {
-    // Close modal on ESC key
+    // Close modal on ESC key, navigate carousel with arrow keys
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && imageModalOpen) {
         setImageModalOpen(false);
+        setCarouselImages([]);
+        setCurrentCarouselIndex(0);
       }
       if (e.key === "Escape" && projectCardModalOpen) {
         setProjectCardModalOpen(false);
         setSelectedCardIndex(null);
+        setCarouselImages([]);
+        setCurrentCarouselIndex(0);
+      }
+      // Carousel navigation with arrow keys
+      if (carouselImages.length > 0) {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          setCurrentCarouselIndex((prev) => 
+            prev === 0 ? carouselImages.length - 1 : prev - 1
+          );
+        }
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          setCurrentCarouselIndex((prev) => 
+            prev === carouselImages.length - 1 ? 0 : prev + 1
+          );
+        }
       }
     };
     if (imageModalOpen || projectCardModalOpen) {
@@ -135,7 +156,7 @@ export default function ProjectPage() {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [imageModalOpen, projectCardModalOpen]);
+  }, [imageModalOpen, projectCardModalOpen, carouselImages.length]);
 
   useEffect(() => {
     // Track scroll direction for "Jump to top" button
@@ -284,14 +305,14 @@ export default function ProjectPage() {
   const tocItems = project.id === 1 ? [
     { id: 'team', title: 'Team' },
     { id: 'context', title: 'Context' },
-    { id: 'problem', title: 'Problem' },
+    { id: 'problem', title: 'Context' },
     { id: 'goals', title: 'Goals' },
     { id: 'early-exploration', title: 'Framing and explorations' },
     { id: 'designs', title: 'Designs' },
     { id: 'impact', title: 'Dashboard metrics' },
     { id: 'outcomes', title: 'Outcomes' },
   ] : project.id === 2 ? [
-    { id: 'problem', title: 'Problem' },
+    { id: 'problem', title: 'Context' },
     { id: 'goals', title: 'Goals' },
     // { id: 'solution', title: 'Solution' }, // Hidden for now
     { 
@@ -310,7 +331,7 @@ export default function ProjectPage() {
   ] : project.id === 3 ? [
     { id: 'team', title: 'Team' },
     { id: 'context', title: 'Context' },
-    { id: 'problem', title: 'Problem' },
+    { id: 'problem', title: 'Context' },
     { id: 'solutioning', title: 'Goals and Solutions' },
     { 
       id: 'core-design-decisions', 
@@ -328,7 +349,7 @@ export default function ProjectPage() {
   ] : project.id === 6 ? [
     { id: 'team', title: 'Team' },
     { id: 'overview', title: 'Overview' },
-    { id: 'problem', title: 'The Problem' },
+    { id: 'problem', title: 'Context' },
     { id: 'data', title: 'The Data' },
     { id: 'problem-alignment', title: 'Problem Alignment & Hypothesis' },
     { id: 'design-principles', title: 'Design Principles' },
@@ -458,24 +479,44 @@ export default function ProjectPage() {
         {/* Project Title */}
         <section className="pb-12 md:pb-16 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
           <h2 className="text-[16px] font-medium text-foreground mb-1">
-            {project.id === 1 ? "Email Reply Classifications" : project.id === 2 ? "Multi Channel Notifications" : project.id === 3 ? "One-off tasks" : project.id === 6 ? "Investing in Commercial Real Estate" : project.id === 8 ? "Cadre Design System" : project.title}
+            {project.id === 1 ? "AI Powered Reply Intelligence" : project.id === 2 ? "Unified Notification System" : project.id === 3 ? "Flexible Task Orchestration" : project.id === 6 ? "Multi-path Investment Journeys" : project.id === 8 ? "Design System for Rapid Development" : project.title}
           </h2>
           <p className={`text-sm ${theme === "dark" ? "text-[#808080]" : "text-foreground/60"} mb-4`}>
             {project.category === "Cadre" ? "Cadre (Acquired by Willow Wealth)" : project.category}
           </p>
           {project.id === 1 && (
-            <p className="text-[14px] leading-relaxed text-foreground mb-6">
-              Bridging intent, automation, and signal clarity in outbound sales
-            </p>
+            <div className="mb-6 space-y-4">
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">The problem:</span> A sales rep sends 1,000 emails and 100 people reply back. But which replies actually matter? Before, every reply looked the same in Unify; whether it was &quot;Yes, let&apos;s meet!&quot; or &quot;I&apos;m on vacation until next month&quot; or an email bounce. Reps had to manually read every single response to figure out which prospects were genuinely interested, wasting valuable selling time and often missing opportunities buried in their inbox.
+              </p>
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">What I designed:</span> An AI system that reads and classifies every email reply by intent (e.g. willing to meet, needs info, not interested) and type (real person vs. automated). Now users can instantly see their best leads and ignore the noise.
+              </p>
+            </div>
           )}
           {project.id === 2 && (
-            <p className="text-[14px] leading-relaxed text-foreground mb-6">
-              Building a scalable notification system on Unify to pave the way for Product Led Growth
-            </p>
+            <div className="mb-6 space-y-4">
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">The problem:</span> Customers were missing opportunities every day. A prospect would reply saying &quot;I&apos;m interested&quot;, but the rep wouldn&apos;t see it for hours because there were no notifications. Meanwhile, mailbox connections could silently break, stopping all outreach without warning. Reps only discovered these issues when they manually checked the system or when deals had already gone cold. This results in lost deals and frustrated users calling support to figure out what went wrong.
+              </p>
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">What I designed:</span> A multi-channel notification system that instantly alerts reps to new leads, system issues, and important updates so they can act fast and stay ahead of issues.
+              </p>
+            </div>
           )}
           {project.id === 3 && (
+            <div className="mb-6 space-y-4">
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">The problem:</span> A prospect replies &quot;Can we talk next quarter?&quot; But the rep is stuck and they can&apos;t set a 3-month reminder without breaking their automated outreach sequence. Or a hot lead visits the pricing page, but customers can&apos;t send an immediate follow-up email because the system only supports pre-scheduled outbound steps. Sales reps were missing out on deals because Unify only supported rigid and automated sequences, blocking them from acting on real-time opportunities.
+              </p>
+              <p className="text-[14px] leading-relaxed text-foreground">
+                <span className="font-medium">What I designed:</span> A flexible task management system that works alongside automation - letting reps instantly log calls, send emails, and schedule reminders without disrupting ongoing workflows.
+              </p>
+            </div>
+          )}
+          {project.id === 7 && (
             <p className="text-[14px] leading-relaxed text-foreground mb-6">
-              Enabling timely, high-intent sales actions and reminders outside of automated sequences
+              Designing a LinkedIn signal tracking system that captures follows, likes, and comments and identifies engaged people in timely manner
             </p>
           )}
           {project.id === 6 && (
@@ -502,7 +543,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/cadre-dls/cadre-dls-hero.png"
-                alt="Cadre Design System"
+                alt="Design System for Rapid Development"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -524,7 +565,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/reply-classification/reply-hero.png"
-                alt="Email Reply Classification"
+                alt="AI Powered Reply Intelligence"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -546,7 +587,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/notifications/notifications-hero.png?v=2"
-                alt="Notifications"
+                alt="Unified Notification System"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -568,7 +609,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/tasks/tasks-hero.png?v=3"
-                alt="One-off Sales Tasks"
+                alt="Flexible Task Orchestration"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -590,7 +631,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/cre-investing/investing-hero.png"
-                alt="Investing in CRE"
+                alt="Multi-path Investment Journeys"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -612,7 +653,7 @@ export default function ProjectPage() {
             >
               <img
                 src="/images/social-signals/add-signal.gif"
-                alt="Track Social Signals"
+                alt="Real-time LinkedIn Signal Tracking"
                 className="w-full h-auto rounded-[8px]"
               />
             </div>
@@ -650,7 +691,7 @@ export default function ProjectPage() {
 
             {/* Problem */}
             <section id="problem" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '400ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">Problem</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Context</h3>
               <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
                 <p className="font-medium">
                   How might we help sales teams instantly understand which replies matter, while also automating away low value busy work, without disrupting sequence flows?
@@ -1028,7 +1069,7 @@ export default function ProjectPage() {
           </div>
         )}
 
-        {/* Project Content for One-off Sales Tasks */}
+        {/* Project Content for Flexible Task Orchestration */}
         {project.id === 3 && (
           <div className="space-y-16 md:space-y-20 pb-12 md:pb-16">
             {/* Team */}
@@ -1078,13 +1119,6 @@ export default function ProjectPage() {
                 }`}>
                   Prospects would only show tasks associated with automated sequence steps
                 </p>
-              </div>
-            </section>
-
-            {/* Problem */}
-            <section id="problem" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '400ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">Problem</h3>
-              <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
                 <p>
                   Unify was originally centered around deeply intuitive and flexible automated workflows, designed to scale outreach efficiently. However, day-to-day sales work often requires fast, contextual, and human judgement.
                 </p>
@@ -1687,11 +1721,8 @@ export default function ProjectPage() {
           <div className="space-y-16 md:space-y-20 pb-12 md:pb-16">
             {/* Problem */}
             <section id="problem" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '200ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">Problem</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Context</h3>
               <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
-                <p>
-                  Unify used to have no holistic notifications system. Customers only discovered issues by stumbling into broken states and high urgency moments like positive replies were easy to miss.
-                </p>
                 <p>
                   We saw three recurring pain points
                 </p>
@@ -2235,7 +2266,7 @@ export default function ProjectPage() {
 
             {/* The Problem */}
             <section id="problem" className="animate-fade-in-up scroll-mt-[60px]" style={{ animationDelay: '400ms' }}>
-              <h3 className="text-[15px] font-medium text-foreground mb-4">The Problem</h3>
+              <h3 className="text-[15px] font-medium text-foreground mb-4">Context</h3>
               <div className="space-y-4 text-[14px] leading-relaxed text-foreground">
                 <p>
                   Cadre&apos;s goal is to simplify the complex processes of CRE Investing and democratize access to retail investors. Currently, users experience high friction and confusing steps when trying to make an investment, which involve two processes:
@@ -3071,34 +3102,161 @@ export default function ProjectPage() {
         {project.id === 5 && (
           <div className="space-y-16 md:space-y-20 pb-12 md:pb-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Array.from({ length: 9 }).map((_, index) => (
+              {Array.from({ length: 7 }).map((_, index) => (
                 <div
                   key={index}
+                  style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => {
                     setSelectedCardIndex(index);
+                    if (index === 0) {
+                      setCarouselImages([
+                        "/images/product-wins/upsells/mailboxes.png",
+                        "/images/product-wins/upsells/credits.png",
+                        "/images/product-wins/upsells/seats.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    } else if (index === 1) {
+                      setCarouselImages([
+                        "/images/product-wins/triggers/trigger-new.png",
+                        "/images/product-wins/triggers/trigger-old.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    } else if (index === 3) {
+                      setCarouselImages([
+                        "/images/product-wins/exclusions-setup/exclusions-1.png",
+                        "/images/product-wins/exclusions-setup/exclusions-2.png",
+                        "/images/product-wins/exclusions-setup/exclusions-3.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    } else if (index === 4) {
+                      setCarouselImages([
+                        "/images/product-wins/csv-upload/upload-1.png",
+                        "/images/product-wins/csv-upload/upload-2.png",
+                        "/images/product-wins/csv-upload/upload-3.png",
+                        "/images/product-wins/csv-upload/upload-4.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    } else if (index === 5) {
+                      setCarouselImages([
+                        "/images/product-wins/ai-smart/outputs-1.png",
+                        "/images/product-wins/ai-smart/outputs-2.png",
+                        "/images/product-wins/ai-smart/outputs-3.png",
+                        "/images/product-wins/ai-smart/outputs-4.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    } else if (index === 6) {
+                      setCarouselImages([
+                        "/images/product-wins/lookalike/lookalike-1.png",
+                        "/images/product-wins/lookalike/lookalike-2.png",
+                        "/images/product-wins/lookalike/lookalike-3.png"
+                      ]);
+                      setCurrentCarouselIndex(0);
+                    }
                     setProjectCardModalOpen(true);
                   }}
-                  className={`rounded-[8px] border overflow-hidden transition-all duration-200 cursor-pointer ${
+                  className={`animate-fade-in-up rounded-[8px] border overflow-hidden transition-all duration-200 cursor-pointer ${
                     theme === "dark"
                       ? "border-[#2A2A2A] bg-[#1A1A1A] hover:border-[#3A3A3A] hover:shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
                       : "border-foreground/10 bg-foreground/5 hover:border-foreground/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                   }`}
                 >
-                  <div className="w-full aspect-square bg-foreground/10 flex items-center justify-center">
-                    <span className={`text-[12px] ${
-                      theme === "dark" ? "text-[#808080]" : "text-foreground/50"
-                    }`}>
-                      Image placeholder
-                    </span>
-                  </div>
+                  {index === 0 ? (
+                    <div className="w-full aspect-square relative overflow-hidden">
+                      <Image
+                        src="/images/product-wins/upsells/mailboxes.png"
+                        alt="Upsells"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 1 ? (
+                    <div className="w-full aspect-square relative overflow-hidden bg-[#1A1A1A]">
+                      <Image
+                        src="/images/product-wins/triggers/side-panel.png"
+                        alt="Triggers"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover object-top"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 2 ? (
+                    <div className="w-full aspect-square relative overflow-hidden">
+                      <Image
+                        src="/images/product-wins/test-email/test-email.png"
+                        alt="Test Email"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover object-center"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 3 ? (
+                    <div className="w-full aspect-square relative overflow-hidden">
+                      <Image
+                        src="/images/product-wins/exclusions-setup/exclusions-3.png"
+                        alt="Exclusions"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 4 ? (
+                    <div className="w-full aspect-square relative overflow-hidden">
+                      <Image
+                        src="/images/product-wins/csv-upload/upload-1.png"
+                        alt="CSV Upload"
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 5 ? (
+                    <div className="w-full aspect-square relative overflow-hidden bg-[#1A1A1A] flex items-center justify-center p-4">
+                      <Image
+                        src="/images/product-wins/ai-smart/preview.png?v=2"
+                        alt="AI Smart"
+                        width={400}
+                        height={400}
+                        className="w-auto h-full max-w-full object-contain rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  ) : index === 6 ? (
+                    <div className="w-full aspect-square relative overflow-hidden bg-[#1A1A1A] flex items-center justify-center p-4">
+                      <Image
+                        src="/images/product-wins/lookalike/preview.png"
+                        alt="Lookalike"
+                        width={400}
+                        height={400}
+                        className="w-auto h-full max-w-full object-contain rounded-[8px]"
+                        unoptimized
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full aspect-square bg-foreground/10 flex items-center justify-center">
+                      <span className={`text-[12px] ${
+                        theme === "dark" ? "text-[#808080]" : "text-foreground/50"
+                      }`}>
+                        Image placeholder
+                      </span>
+                    </div>
+                  )}
+                  <div className={`border-t ${
+                    theme === "dark" ? "border-[#2A2A2A]" : "border-foreground/10"
+                  }`} style={{ marginTop: 0 }} />
                   <div className="p-4 space-y-1">
                     <h1 className="text-[14px] font-medium text-foreground">
-                      Project Title {index + 1}
+                      {index === 0 ? "Self-Serve Upsells" : index === 1 ? "Play Builder Panel Redesign" : index === 2 ? "Validations for unhydrated email variables" : index === 3 ? "Guided Exclusion Onboarding" : index === 4 ? "AI Powered CSV Uploads" : index === 5 ? "AI Agent Research in Email Templates" : index === 6 ? "Find Lookalike Companies" : `Project Title ${index + 1}`}
                     </h1>
                     <h2 className={`text-[12px] ${
                       theme === "dark" ? "text-[#808080]" : "text-foreground/60"
                     }`}>
-                      Project Subtitle {index + 1}
+                      {index === 0 ? "Designed and shipped in-product purchase flows for User Seats, Mailboxes, and Credits" : index === 1 ? "Clarified UI for editing vs. selection to reduce configuration errors" : index === 2 ? "Designed guardrails for email templates variables to prevent broken Sequences" : index === 3 ? "Codified expert setup knowledge into a self-serve workflow for new users" : index === 4 ? "Designed uploading lists of prospects with smart field mapping and contact enrichment" : index === 5 ? "Incorporated Agent Research questions as variable tools in email templates to run smarter automated Sequences" : index === 6 ? "Scaling prospect discovery by targeting companies similar to your best customers" : `Project Subtitle ${index + 1}`}
                     </h2>
                   </div>
                 </div>
@@ -3123,19 +3281,31 @@ export default function ProjectPage() {
           {/* Backdrop overlay */}
           <div
             className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm"
-            onClick={() => setImageModalOpen(false)}
+            onClick={() => {
+              setImageModalOpen(false);
+              setCarouselImages([]);
+              setCurrentCarouselIndex(0);
+            }}
           />
           {/* Modal content */}
           <div
             className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none"
-            onClick={() => setImageModalOpen(false)}
+            onClick={() => {
+              setImageModalOpen(false);
+              setCarouselImages([]);
+              setCurrentCarouselIndex(0);
+            }}
           >
             <div className="max-w-[90vw] max-h-[90vh] pointer-events-auto">
               <div className="relative inline-block">
                 <button
                   type="button"
-                  onClick={() => setImageModalOpen(false)}
-                  className={`absolute top-0 left-full ml-4 p-1.5 rounded-full transition-colors ${
+                  onClick={() => {
+                    setImageModalOpen(false);
+                    setCarouselImages([]);
+                    setCurrentCarouselIndex(0);
+                  }}
+                  className={`absolute top-0 left-full ml-4 p-1.5 rounded-full transition-colors z-10 ${
                     theme === "dark" 
                       ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
                       : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
@@ -3156,15 +3326,115 @@ export default function ProjectPage() {
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                 </button>
-                <Image
-                  src={modalImageSrc}
-                  alt="Enlarged view"
-                  width={2000}
-                  height={1500}
-                  className="max-w-full max-h-[90vh] object-contain rounded-[8px]"
-                  unoptimized
-                  onClick={(e) => e.stopPropagation()}
-                />
+                
+                {carouselImages.length > 0 ? (
+                  <div className="relative">
+                    {/* Left Chevron */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentCarouselIndex((prev) => 
+                          prev === 0 ? carouselImages.length - 1 : prev - 1
+                        );
+                      }}
+                      className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 p-2 rounded-full transition-colors ${
+                        theme === "dark" 
+                          ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
+                          : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
+                      }`}
+                      aria-label="Previous image"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
+                    </button>
+
+                    {/* Image */}
+                    <Image
+                      src={carouselImages[currentCarouselIndex]}
+                      alt={`Image ${currentCarouselIndex + 1} of ${carouselImages.length}`}
+                      width={2000}
+                      height={1500}
+                      className="max-w-full max-h-[90vh] object-contain rounded-[8px]"
+                      unoptimized
+                      onClick={(e) => e.stopPropagation()}
+                    />
+
+                    {/* Right Chevron */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentCarouselIndex((prev) => 
+                          prev === carouselImages.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 p-2 rounded-full transition-colors ${
+                        theme === "dark" 
+                          ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
+                          : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
+                      }`}
+                      aria-label="Next image"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-5 h-5"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </button>
+
+                    {/* Dot Indicators */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-12 flex gap-2">
+                      {carouselImages.map((_, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentCarouselIndex(index);
+                          }}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            index === currentCarouselIndex
+                              ? theme === "dark"
+                                ? "bg-foreground w-6"
+                                : "bg-foreground w-6"
+                              : theme === "dark"
+                                ? "bg-[#404040] hover:bg-[#606060]"
+                                : "bg-foreground/30 hover:bg-foreground/50"
+                          }`}
+                          aria-label={`Go to image ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <Image
+                    src={modalImageSrc}
+                    alt="Enlarged view"
+                    width={2000}
+                    height={1500}
+                    className="max-w-full max-h-[90vh] object-contain rounded-[8px]"
+                    unoptimized
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -3180,6 +3450,8 @@ export default function ProjectPage() {
             onClick={() => {
               setProjectCardModalOpen(false);
               setSelectedCardIndex(null);
+              setCarouselImages([]);
+              setCurrentCarouselIndex(0);
             }}
           />
           {/* Modal content */}
@@ -3188,72 +3460,164 @@ export default function ProjectPage() {
             onClick={() => {
               setProjectCardModalOpen(false);
               setSelectedCardIndex(null);
+              setCarouselImages([]);
+              setCurrentCarouselIndex(0);
             }}
           >
             <div
-              className={`w-full h-full md:w-[80vw] md:h-[80vh] md:max-w-[1200px] md:max-h-[800px] rounded-[8px] overflow-hidden pointer-events-auto flex flex-col md:flex-row ${
+              className={`w-full h-full md:w-[80vw] md:h-[80vh] md:max-w-[1200px] md:max-h-[800px] rounded-[8px] overflow-hidden pointer-events-auto relative ${
                 theme === "dark"
                   ? "bg-[#1A1A1A] border border-[#2A2A2A]"
                   : "bg-background border border-foreground/10"
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Image section - 2/3 width on desktop, full width on mobile */}
-              <div className="w-full md:w-2/3 h-64 md:h-full bg-foreground/10 flex items-center justify-center relative">
-                <span className={`text-[12px] ${
-                  theme === "dark" ? "text-[#808080]" : "text-foreground/50"
-                }`}>
-                  Image placeholder
-                </span>
-              </div>
-              {/* Text content section - 1/3 width on desktop, full width on mobile */}
-              <div className="w-full md:w-1/3 p-6 overflow-y-auto relative">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setProjectCardModalOpen(false);
-                    setSelectedCardIndex(null);
-                  }}
-                  className={`absolute top-4 right-4 p-1.5 rounded-full transition-colors ${
-                    theme === "dark" 
-                      ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
-                      : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
-                  }`}
-                  aria-label="Close modal"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-4 h-4"
-                  >
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                </button>
-                <div className="space-y-4">
-                  <h1 className="text-[14px] font-medium text-foreground">
-                    Project Title {selectedCardIndex + 1}
-                  </h1>
-                  <h2 className={`text-[12px] ${
-                    theme === "dark" ? "text-[#808080]" : "text-foreground/60"
+              {/* Image section - full width */}
+              <div className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden bg-foreground/10">
+                {(selectedCardIndex === 0 || selectedCardIndex === 1 || selectedCardIndex === 3 || selectedCardIndex === 4 || selectedCardIndex === 5 || selectedCardIndex === 6) && carouselImages.length > 0 ? (
+                  <>
+                    {/* Title above image - only for project 2 */}
+                    {selectedCardIndex === 1 && (
+                      <div className="mb-4">
+                        <h3 className="text-[14px] font-medium text-foreground">
+                          {carouselImages[currentCarouselIndex].includes('trigger-new') ? 'Redesigned' : 'Before'}
+                        </h3>
+                      </div>
+                    )}
+                    <div className="relative w-full h-[90%] flex items-center justify-center">
+                      {/* Left Chevron */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentCarouselIndex((prev) => 
+                            prev === 0 ? carouselImages.length - 1 : prev - 1
+                          );
+                        }}
+                        className={`absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-colors ${
+                          theme === "dark" 
+                            ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
+                            : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
+                        }`}
+                        aria-label="Previous image"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="w-4 h-4 md:w-5 md:h-5"
+                        >
+                          <path d="m15 18-6-6 6-6" />
+                        </svg>
+                      </button>
+
+                      {/* Image */}
+                      <Image
+                        src={carouselImages[currentCarouselIndex]}
+                        alt={`Image ${currentCarouselIndex + 1} of ${carouselImages.length}`}
+                        width={2000}
+                        height={1500}
+                        className="w-auto h-full max-w-full object-contain rounded-[8px]"
+                        unoptimized
+                      />
+
+                    {/* Right Chevron */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentCarouselIndex((prev) => 
+                          prev === carouselImages.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      className={`absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-colors ${
+                        theme === "dark" 
+                          ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
+                          : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
+                      }`}
+                      aria-label="Next image"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="w-4 h-4 md:w-5 md:h-5"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </button>
+
+                      {/* Dot Indicators */}
+                      <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {carouselImages.map((_, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCurrentCarouselIndex(index);
+                            }}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              index === currentCarouselIndex
+                                ? theme === "dark"
+                                  ? "bg-foreground w-6"
+                                  : "bg-foreground w-6"
+                                : theme === "dark"
+                                  ? "bg-[#404040] hover:bg-[#606060]"
+                                  : "bg-foreground/30 hover:bg-foreground/50"
+                            }`}
+                            aria-label={`Go to image ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <span className={`text-[12px] ${
+                    theme === "dark" ? "text-[#808080]" : "text-foreground/50"
                   }`}>
-                    Project Subtitle {selectedCardIndex + 1}
-                  </h2>
-                  <div className="text-[14px] leading-relaxed text-foreground space-y-4">
-                    <p>
-                      This is placeholder content for the project card modal. Replace this with actual project description and details.
-                    </p>
-                    <p>
-                      The modal displays an image on the left (2/3 width) and text content on the right (1/3 width) on desktop, and stacks vertically on mobile.
-                    </p>
-                  </div>
-                </div>
+                    Image placeholder
+                  </span>
+                )}
               </div>
+              {/* Close button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setProjectCardModalOpen(false);
+                  setSelectedCardIndex(null);
+                  setCarouselImages([]);
+                  setCurrentCarouselIndex(0);
+                }}
+                className={`absolute top-4 right-4 p-1.5 rounded-full transition-colors z-20 ${
+                  theme === "dark" 
+                    ? "bg-[#1A1A1A] border border-[#2A2A2A] text-foreground hover:bg-[#252525]" 
+                    : "bg-white border border-foreground/20 text-foreground hover:bg-foreground/5"
+                }`}
+                aria-label="Close modal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
             </div>
           </div>
         </>
