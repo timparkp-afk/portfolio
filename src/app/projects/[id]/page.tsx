@@ -61,13 +61,7 @@ export default function ProjectPage() {
   const [projectCardModalOpen, setProjectCardModalOpen] = useState(false);
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(null);
   
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-      return savedTheme || "light";
-    }
-    return "light";
-  });
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const root = document.documentElement;
