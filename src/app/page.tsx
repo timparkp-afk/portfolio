@@ -98,7 +98,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-background px-6 py-6 md:px-[200px] md:py-[60px] lg:px-[320px] xl:px-[400px] 2xl:px-[400px] 2xl:py-[60px]">
+    <main className="min-h-screen bg-background px-6 pt-8 pb-6 md:px-[200px] md:pt-[80px] md:pb-[60px] lg:px-[320px] xl:px-[400px] 2xl:px-[400px] 2xl:pt-[80px] 2xl:pb-[60px]">
       <div className="2xl:max-w-[1192px] 2xl:mx-auto">
       {/* Header */}
       <header className="flex items-center justify-between pb-12 md:pb-16 animate-fade-in-up" style={{ animationDelay: '0ms' }}>
