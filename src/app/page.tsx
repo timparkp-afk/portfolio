@@ -7,9 +7,11 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
   const [emailCopied, setEmailCopied] = useState(false);
+  const [showMobileToast, setShowMobileToast] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [profilePhotoHovered, setProfilePhotoHovered] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
   
   const projects = [
     {
@@ -63,21 +65,36 @@ export default function Home() {
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setClickedButton("theme");
+    setTimeout(() => setClickedButton(null), 300);
   };
 
   const handleEmailClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setClickedButton("email");
+    setTimeout(() => setClickedButton(null), 300);
     try {
       await navigator.clipboard.writeText("timparkp@gmail.com");
       setEmailCopied(true);
       setTimeout(() => {
         setEmailCopied(false);
       }, 3000);
+      
+      // Show mobile toast
+      setShowMobileToast(true);
+      setTimeout(() => {
+        setShowMobileToast(false);
+      }, 1000);
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
         console.error("Failed to copy email:", err);
       }
     }
+  };
+  
+  const handleLinkedInClick = () => {
+    setClickedButton("linkedin");
+    setTimeout(() => setClickedButton(null), 300);
   };
 
   return (
@@ -100,7 +117,7 @@ export default function Home() {
           />
         </div>
         <nav className="flex items-center" aria-label="Main navigation">
-          <div className={`flex gap-2 p-1 rounded-[12px] border ${
+          <div className={`flex gap-[6px] p-1 rounded-[12px] border ${
             theme === "dark" 
               ? "bg-[#1A1A1A] border-[#2A2A2A]" 
               : "bg-foreground/5 border-foreground/10"
@@ -109,7 +126,10 @@ export default function Home() {
               href="https://www.linkedin.com/in/thetimpark/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleLinkedInClick}
               className={`relative p-1 rounded-[8px] transition-colors flex items-center justify-center group ${
+                clickedButton === "linkedin" ? "button-click-animation" : ""
+              } ${
                 theme === "dark" 
                   ? "hover:bg-[#252525] text-foreground" 
                   : "hover:bg-foreground/10 text-foreground"
@@ -120,7 +140,7 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`w-4 h-4 ${theme === "light" ? "opacity-70" : ""}`}
+                className={`w-3.5 h-3.5 ${theme === "light" ? "opacity-70" : ""}`}
                 aria-hidden="true"
               >
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -137,6 +157,8 @@ export default function Home() {
               type="button"
               onClick={handleEmailClick}
               className={`relative p-1 rounded-[8px] transition-colors flex items-center justify-center group ${
+                clickedButton === "email" ? "button-click-animation" : ""
+              } ${
                 theme === "dark" 
                   ? "hover:bg-[#252525] text-foreground" 
                   : "hover:bg-foreground/10 text-foreground"
@@ -148,7 +170,7 @@ export default function Home() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="w-4 h-4"
@@ -169,6 +191,8 @@ export default function Home() {
               type="button"
               onClick={toggleTheme}
               className={`relative p-1 rounded-[8px] transition-colors flex items-center justify-center group ${
+                clickedButton === "theme" ? "button-click-animation" : ""
+              } ${
                 theme === "dark" 
                   ? "hover:bg-[#252525] text-foreground" 
                   : "hover:bg-foreground/10 text-foreground"
@@ -181,7 +205,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="w-4 h-4"
@@ -203,7 +227,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   className="w-4 h-4"
@@ -229,7 +253,7 @@ export default function Home() {
           >
             Unify
           </a>{" "}
-          designing AI-powered workflows that help sales teams reach the right customers at the right time. Before that I was on the design teams over at{" "}
+          designing AI-powered workflows that help sales teams reach the right customers at the right time. Before that I was a designer at{" "}
           <a 
             href="https://www.willowwealth.com/" 
             target="_blank"
@@ -247,7 +271,7 @@ export default function Home() {
           >
             VTS
           </a>
-          . I&apos;ve spent my career designing complex B2B systems, and I&apos;m excited to explore new challenges to push my craft forward.
+          . My experience spans across complex B2B and B2C systems, and I&apos;m excited to bring my perspective to new challenges.
         </p>
       </section>
 
@@ -467,13 +491,30 @@ export default function Home() {
       <footer className="pt-12 md:pt-16 pb-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
         <div className="flex items-center justify-between text-[14px]">
           <p className={`${theme === "dark" ? "text-[#A0A0A0]" : "text-[#525252]"}`}>
-            © Tim Park 2025
+            © Tim Park 2026
           </p>
             <p className={`${theme === "dark" ? "text-[#A0A0A0]" : "text-[#525252]"}`}>
               Made with Cursor ❤️
             </p>
         </div>
       </footer>
+      
+      {/* Mobile Toast - Email Copied */}
+      <div
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden transition-opacity duration-300 ${
+          showMobileToast ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div
+          className={`px-4 py-3 rounded-[8px] text-sm ${
+            theme === "dark"
+              ? "bg-[#2A2A2A] text-foreground border border-[#404040]"
+              : "bg-white text-foreground border border-foreground/20 shadow-lg"
+          }`}
+        >
+          Email copied
+        </div>
+      </div>
       </div>
     </main>
   );
