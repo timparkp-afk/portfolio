@@ -16,7 +16,7 @@ export default function Home() {
   const projects = [
     {
       id: 3,
-      title: "Flexible Task Orchestration",
+      title: "Flexible Task Workflows",
       category: "Unify",
     },
     {
@@ -41,7 +41,7 @@ export default function Home() {
     },
     {
       id: 6,
-      title: "Multi-path Investment Journeys",
+      title: "Dynamic Real Estate Investments",
       category: "Cadre",
     },
     {
@@ -397,7 +397,7 @@ export default function Home() {
           >
             <Image
               src="/images/tasks/tasks-hero.png?v=3"
-              alt="Flexible Task Orchestration"
+              alt="Flexible Task Workflows"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"
@@ -437,7 +437,7 @@ export default function Home() {
           >
             <Image
               src="/images/cre-investing/investing-hero.png"
-              alt="Multi-path Investment Journeys"
+              alt="Dynamic Real Estate Investments"
               width={1200}
               height={675}
               className="w-full h-auto rounded-[8px]"

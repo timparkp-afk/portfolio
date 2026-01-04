@@ -18,7 +18,7 @@ const projects = [
   },
     {
       id: 3,
-      title: "Flexible Task Orchestration",
+      title: "Flexible Task Workflows",
       category: "Unify",
     },
   {
@@ -28,7 +28,7 @@ const projects = [
   },
   {
     id: 6,
-    title: "Multi-path Investment Journeys",
+    title: "Dynamic Real Estate Investments",
     category: "Cadre",
   },
   {
@@ -473,7 +473,7 @@ export default function ProjectPage() {
         {/* Project Title */}
         <section className="pb-12 md:pb-16 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
           <h2 className="text-[16px] font-medium text-foreground mb-1">
-            {project.id === 1 ? "AI Powered Reply Intelligence" : project.id === 2 ? "Unified Notification System" : project.id === 3 ? "Flexible Task Orchestration" : project.id === 6 ? "Multi-path Investment Journeys" : project.id === 8 ? "Design System for Rapid Development" : project.title}
+            {project.id === 1 ? "AI Powered Reply Intelligence" : project.id === 2 ? "Unified Notification System" : project.id === 3 ? "Flexible Task Workflows" : project.id === 6 ? "Dynamic Real Estate Investments" : project.id === 8 ? "Design System for Rapid Development" : project.title}
           </h2>
           <p className={`text-sm ${theme === "dark" ? "text-[#808080]" : "text-foreground/60"} mb-4`}>
             {project.category === "Cadre" ? "Cadre (Acquired by Willow Wealth)" : project.category}
@@ -515,7 +515,7 @@ export default function ProjectPage() {
           )}
           {project.id === 6 && (
             <p className="text-[14px] leading-relaxed text-foreground mb-6">
-              Redesigning a complex investment experience
+              Redesigned the end-to-end journey to invest in Commercial Real Estate products on Cadre. Work also included refactoring a complex sign-up experience to ease onboarding friction, which resulted in lower drop-off metrics during investment journeys. Ultimately expanded new pathways to invest which increased user base.
             </p>
           )}
           {project.id === 8 && (
@@ -603,7 +603,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/tasks/tasks-hero.png?v=3"
-                alt="Flexible Task Orchestration"
+                alt="Flexible Task Workflows"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -625,7 +625,7 @@ export default function ProjectPage() {
             >
               <Image
                 src="/images/cre-investing/investing-hero.png"
-                alt="Multi-path Investment Journeys"
+                alt="Dynamic Real Estate Investments"
                 width={1200}
                 height={675}
                 className="w-full h-auto rounded-[8px]"
@@ -1063,7 +1063,7 @@ export default function ProjectPage() {
           </div>
         )}
 
-        {/* Project Content for Flexible Task Orchestration */}
+        {/* Project Content for Flexible Task Workflows */}
         {project.id === 3 && (
           <div className="space-y-16 md:space-y-20 pb-12 md:pb-16">
             {/* Team */}
