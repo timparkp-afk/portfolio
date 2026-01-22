@@ -36,8 +36,14 @@ export default function RootLayout({
             __html: `
               (function() {
                 const root = document.documentElement;
-                root.style.setProperty('--background', '#F7F6F4');
-                root.style.setProperty('--foreground', '#000000');
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                  root.style.setProperty('--background', '#0A0A0A');
+                  root.style.setProperty('--foreground', '#FFFFFF');
+                } else {
+                  root.style.setProperty('--background', '#F7F6F4');
+                  root.style.setProperty('--foreground', '#000000');
+                }
               })();
             `,
           }}

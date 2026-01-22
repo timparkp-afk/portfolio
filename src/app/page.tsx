@@ -10,7 +10,13 @@ export default function Home() {
   const [showMobileToast, setShowMobileToast] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [profilePhotoHovered, setProfilePhotoHovered] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+      return savedTheme || "light";
+    }
+    return "light";
+  });
   const [clickedButton, setClickedButton] = useState<string | null>(null);
   
   const projects = [
